@@ -15,7 +15,7 @@
   export default {
     name: 'reset-button',
     props: {
-        position: Array,
+       
     },
     data() {
       return {
