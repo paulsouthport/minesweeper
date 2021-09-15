@@ -1,14 +1,12 @@
 <template>
   <div tabindex="0" 
           class='mine-button' 
-          :class='{ "mouse-down": mouseDown||clicked }'
+          :class='{ "mouse-down": (mouseDown||clicked), "flagged": rightClicked }'
           @click="onClicked"   
           @mousedown.prevent="onMouseDown" 
           @mouseleave="blurred" 
           @mouseenter="mouseEnter"
           @contextmenu="onRightClicked">
-
-        {{buttonClicked}} {{reset}}
 
   </div>
 </template>
@@ -34,6 +32,7 @@
           this.clicked ? butt = "L" : "";
           this.rightClicked ? butt = "R" : butt;
           this.clicked != this.rightClicked;
+          if(this.clicked || this.rightClicked) {this.$emit('game-started')}
           return butt;
       } 
     },
@@ -49,17 +48,24 @@
         this.mouseDown = e.buttons == 1;
       },
       onRightClicked(e) {
-        this.rightClicked = this.clicked == false ? true : false;
+         if (this.rightClicked) {
+           this.rightClicked = false
+         }
+         else {
+          this.rightClicked = this.clicked == false ? true : false;
+          this.$emit('game-started');
+        }
         e.preventDefault();
       },
       onClicked() {
         this.rightClicked = false;
         this.clicked = true;
+        this.$emit('game-started');
       } 
     },
     watch: {
       reset() {
-        console.log("watched reset")
+       
         this.clicked = false;
         this.rightClicked = false;
         this.mouseDown = false;
@@ -87,8 +93,11 @@
 }
 
 .mine-button.mouse-down {
- 
-    border: none;
+     border: none;
+}
 
+.mine-button.flagged {
+  background-image: url('~@/assets/flag.png');
+    background-size: contain;
 }
 </style>
