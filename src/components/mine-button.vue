@@ -15,8 +15,9 @@
   export default {
     name: 'mine-button',
     props: {
-        position: Array,
+        position: Object,
         reset: Number,
+        map : Object,
     },
     data() {
       return {
@@ -61,6 +62,10 @@
         this.rightClicked = false;
         this.clicked = true;
         this.$emit('game-started');
+      },
+      amIaBomb() {
+        console.log("my position", this.position)
+        console.log("map", this.map)
       } 
     },
     watch: {
@@ -69,6 +74,10 @@
         this.clicked = false;
         this.rightClicked = false;
         this.mouseDown = false;
+        },
+        map() {
+          console.log("map updated")
+          this.amIaBomb();
         }
     }
   }

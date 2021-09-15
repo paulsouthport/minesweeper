@@ -19,7 +19,13 @@
   
        <div v-for="row in selectedSize" :key=row class="board-rows">
            <div class="row">
-            <MineButton v-for="col in selectedSize" :key=col :position="[row, col]" :reset="boardReset" v-on:gameStarted="gameStarted=true"></MineButton>
+            <MineButton v-for="col in selectedSize" 
+            :key=col 
+            :position="{row: row, col: col}" 
+            :reset="boardReset" 
+            v-on:gameStarted="gameStarted=true" 
+            :map="bombMap">
+            </MineButton>
             </div>
             </div>
     </div>
@@ -46,6 +52,7 @@ export default {
         timer: 0,
         clock: '',
         gameStarted: false,
+        bombMap: [],
       }
     },
     props: {
@@ -69,12 +76,25 @@ export default {
         },
         incrementTimer() {
             this.timer++;
+        },
+        createBombMap() {
+            console.log("creating bomb map") 
+            let map = [];
+            for (let row = 0; row < this.selectedSize; row++) {
+              
+            for (let col = 0; col < this.selectedSize; col++) {
+                map.push({row: row, col: col, bomb: true})
+            }
+            }
+               console.log("map", map)
+               this.bombMap = map;
         }
     },
      watch: {
          gameStarted() {
              if (this.gameStarted) {
              console.log("started")
+             this.createBombMap();
              this.startTimer();
              }
          },
