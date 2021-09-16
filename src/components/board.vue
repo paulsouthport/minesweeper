@@ -3,6 +3,7 @@
  //TODO: bevelled/raised outer of board
  //TODO: Win 3.11 style form header
  //TODO: forat negative counter better, find LCD style monospace web font
+ //TODO: handle reset, remap bombs/new map on grid resize, or prevent resize mid game 
 
 <template>
     <div class="board" >
