@@ -1,12 +1,11 @@
 <template>
-<div class="game">
+  <div class="game">
+  <Board></Board>
+  </div>
 
-<Board></Board>
-</div>
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
 </template>
 
 
@@ -39,7 +38,6 @@ export default {
 
 .text {
   font-family: 'Orbitron', sans-serif;
-     
-    }
+}
 
 </style>
