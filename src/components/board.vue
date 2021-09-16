@@ -11,34 +11,32 @@
     <div class="board" >
         <div class="controls text">
             <div>Grid Size: 
-               <select name="size" v-model.number=selectedSize>
-           <option v-for="option in selectOptions" :key=option>{{option}}</option>
-        </select> 
+                <select name="size" v-model.number=selectedSize>
+                    <option v-for="option in selectOptions" :key=option>{{option}}</option>
+                </select> 
             </div>
         
-         Tries: {{boardReset}}
+            Tries: {{boardReset}}
         </div>
        
-<div class="controls numbers text">
-    <NumberBox id="counter" :value="counter"></NumberBox>
-    <ResetButton v-on:reset="reset"></ResetButton>
-    <NumberBox id="timer" :value="timer"></NumberBox>
-
-</div>
+        <div class="controls numbers text">
+            <NumberBox id="counter" :value="counter"></NumberBox>
+            <ResetButton v-on:reset="reset"></ResetButton>
+            <NumberBox id="timer" :value="timer"></NumberBox>
+        </div>
   
-       <div v-for="row in selectedSize" :key=row class="board-rows">
-           <div class="row">
-            <MineButton v-for="col in selectedSize" 
-            :key=col 
-            :position="{row: row, col: col}" 
-            :reset="boardReset" 
-            :isBomb="isBomb(row, col)"
-            v-on:gameStarted="gameStarted=true" 
-            v-on:state="stateChanged"
-            >
-            </MineButton>
+         <div v-for="row in selectedSize" :key=row class="board-rows">
+            <div class="row">
+                <MineButton v-for="col in selectedSize" 
+                :key=col 
+                :position="{row: row, col: col}" 
+                :reset="boardReset" 
+                :isBomb="isBomb(row, col)"
+                v-on:gameStarted="gameStarted=true" 
+                v-on:state="stateChanged">
+                </MineButton>
             </div>
-            </div>
+        </div>
     </div>
 </template>
 
@@ -106,9 +104,9 @@ export default {
         },
         stateChanged(position, state, bomb) {
             let mineHit = state == STATES.DOWN && bomb;
-           // console.log(position, state, bomb, mineHit ? "hit a mine": '')
-           if (state == STATES.FLAGGED) {this.counter--}
-           if(state == STATES.UNFLAGGED) {this.counter ++}
+            // console.log(position, state, bomb, mineHit ? "hit a mine": '')
+            if (state == STATES.FLAGGED) {this.counter--}
+            if(state == STATES.UNFLAGGED) {this.counter ++}
             this.hitMine = mineHit;
         },
         isBomb(row, col) {

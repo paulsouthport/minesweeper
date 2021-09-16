@@ -1,13 +1,10 @@
 <template>
   <div tabindex="0" 
-          class='reset-button' 
-          :class='{ "mouse-down": mouseDown }'
-          @click="onClicked"   
-          @mousedown.prevent="onMouseDown" 
-         
-          @contextmenu="onRightClicked">
-        
-
+    class='reset-button' 
+    :class='{ "mouse-down": mouseDown }'
+    @click="onClicked"   
+    @mousedown.prevent="onMouseDown" 
+    @contextmenu="onRightClicked">
   </div>
 </template>
 

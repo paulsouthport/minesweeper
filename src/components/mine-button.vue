@@ -1,12 +1,12 @@
 <template>
   <div tabindex="0" 
-          class='mine-button' 
-          :class='{ "mouse-down": (mouseDown||clicked), "flagged": rightClicked, "bomb": (isBomb && clicked) }'
-          @click="onClicked"   
-          @mousedown.prevent="onMouseDown" 
-          @mouseleave="blurred" 
-          @mouseenter="mouseEnter"
-          @contextmenu="onRightClicked">
+    class='mine-button' 
+    :class='{ "mouse-down": (mouseDown||clicked), "flagged": rightClicked, "bomb": (isBomb && clicked) }'
+    @click="onClicked"   
+    @mousedown.prevent="onMouseDown" 
+    @mouseleave="blurred" 
+    @mouseenter="mouseEnter"
+    @contextmenu="onRightClicked">
   <!-- {{isBomb ? 'X': ''}} -->
   </div>
 </template>

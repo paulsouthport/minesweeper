@@ -1,7 +1,7 @@
 <template>
- <div class="container">
-   {{paddedValue}}
- </div>
+  <div class="container">
+    {{paddedValue}}
+  </div>
  
 </template>
 
