@@ -6,6 +6,7 @@
  //TODO: handle reset, remap bombs/new map on grid resize, or prevent resize mid game 
  //TODO: grid lines around tiles with clicked neighbours
  //TODO: replace y keyboard because n & m keys do't work 50% of the tie. Thaks Scarlett!
+ //TODO: Prevent clicking when timer stopped
 
 <template>
     <div class="board" >
