@@ -1,4 +1,5 @@
 # minesweeper
+WIP - minesweeper in Vue 3
 
 ## Project setup
 ```
