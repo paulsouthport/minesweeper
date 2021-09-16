@@ -86,7 +86,6 @@ export default {
         stopTimer() {
             clearInterval(this.clock);    
             this.gameStarted = false;
-            this.timer = 0;
         },
         incrementTimer() {
             this.timer++;
@@ -129,6 +128,7 @@ export default {
          boardReset() {
              console.log("stopped")
              this.stopTimer();
+             this.timer = 0;
              this.createBombMap();
              this.hitMine = false;
          },
