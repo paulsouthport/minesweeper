@@ -70,7 +70,9 @@ export default {
     methods: {
         //TODO: find all tiles neighbouring bombs && counts
         //TODO: spread clear on safe clicked
-        
+        //TODO: bevelled/raised outer of board
+        //TODO: Win 3.11 style form header
+
         reset() {
            this.boardReset++;
          
