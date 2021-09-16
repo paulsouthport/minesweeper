@@ -72,6 +72,7 @@ export default {
         //TODO: spread clear on safe clicked
         //TODO: bevelled/raised outer of board
         //TODO: Win 3.11 style form header
+        //TODO: forat negative counter better, find LCD style monospace web font
 
         reset() {
            this.boardReset++;
