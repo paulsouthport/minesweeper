@@ -1,3 +1,9 @@
+ //TODO: find all tiles neighbouring bombs && counts
+ //TODO: spread clear on safe clicked
+ //TODO: bevelled/raised outer of board
+ //TODO: Win 3.11 style form header
+ //TODO: forat negative counter better, find LCD style monospace web font
+
 <template>
     <div class="board" >
         <div class="controls text">
@@ -68,12 +74,6 @@ export default {
         this.createBombMap();
     },
     methods: {
-        //TODO: find all tiles neighbouring bombs && counts
-        //TODO: spread clear on safe clicked
-        //TODO: bevelled/raised outer of board
-        //TODO: Win 3.11 style form header
-        //TODO: forat negative counter better, find LCD style monospace web font
-
         reset() {
            this.boardReset++;
          
