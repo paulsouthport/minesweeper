@@ -1,23 +1,26 @@
 <template>
   <div tabindex="0" 
           class='mine-button' 
-          :class='{ "mouse-down": (mouseDown||clicked), "flagged": rightClicked }'
+          :class='{ "mouse-down": (mouseDown||clicked), "flagged": rightClicked, "bomb": (isBomb && clicked) }'
           @click="onClicked"   
           @mousedown.prevent="onMouseDown" 
           @mouseleave="blurred" 
           @mouseenter="mouseEnter"
           @contextmenu="onRightClicked">
-
+  <!-- {{isBomb ? 'X': ''}} -->
   </div>
 </template>
 
 <script>
+import { STATES } from '../enums';
+
   export default {
     name: 'mine-button',
     props: {
         position: Object,
         reset: Number,
-        map : Object,
+        isBomb: Boolean,
+       
     },
     data() {
       return {
@@ -28,14 +31,7 @@
       }
     },
     computed: {
-      buttonClicked() {
-          let butt = "";
-          this.clicked ? butt = "L" : "";
-          this.rightClicked ? butt = "R" : butt;
-          this.clicked != this.rightClicked;
-          if(this.clicked || this.rightClicked) {this.$emit('game-started')}
-          return butt;
-      } 
+      
     },
     mounted() {},
     methods: {
@@ -63,10 +59,7 @@
         this.clicked = true;
         this.$emit('game-started');
       },
-      amIaBomb() {
-        console.log("my position", this.position)
-        console.log("map", this.map)
-      } 
+     
     },
     watch: {
       reset() {
@@ -75,10 +68,14 @@
         this.rightClicked = false;
         this.mouseDown = false;
         },
-        map() {
-          console.log("map updated")
-          this.amIaBomb();
+       
+        clicked() {
+            this.$emit("state", this.position, this.clicked ? STATES.DOWN : STATES.UP, this.isBomb);
+        },
+        rightClicked() {
+            this.$emit("state", this.position, this.rightClicked ? STATES.FLAGGED : STATES.UP, false);
         }
+      
     }
   }
 </script>
@@ -108,5 +105,11 @@
 .mine-button.flagged {
   background-image: url('~@/assets/flag.png');
     background-size: contain;
+}
+
+.mine-button.bomb {
+  background-image: url('~@/assets/bomb.png');
+    background-size: contain;
+    background-color: red;
 }
 </style>

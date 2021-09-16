@@ -20,7 +20,7 @@
     computed: {
       paddedValue() {
         let num = this.value.toString();
-        while (num.length < 3) num = "0" + num;
+        while (num.length < 3 && num >= 0) num = "0" + num;
         return num;
       }
      

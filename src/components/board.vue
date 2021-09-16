@@ -23,8 +23,10 @@
             :key=col 
             :position="{row: row, col: col}" 
             :reset="boardReset" 
+            :isBomb="isBomb(row, col)"
             v-on:gameStarted="gameStarted=true" 
-            :map="bombMap">
+            v-on:state="stateChanged"
+            >
             </MineButton>
             </div>
             </div>
@@ -35,6 +37,8 @@
 import MineButton from './mine-button.vue'
 import ResetButton from './reset-button.vue'
 import NumberBox from './number-box.vue'
+
+import { STATES } from '../enums';
 
 export default {
     name: 'board',
@@ -53,6 +57,7 @@ export default {
         clock: '',
         gameStarted: false,
         bombMap: [],
+        hitMine: false,
       }
     },
     props: {
@@ -60,9 +65,12 @@ export default {
     },
     computed: {},
     mounted() {
-       
+        this.createBombMap();
     },
     methods: {
+        //TODO: find all tiles neighbouring bombs && counts
+        //TODO: spread clear on safe clicked
+        
         reset() {
            this.boardReset++;
          
@@ -78,30 +86,51 @@ export default {
             this.timer++;
         },
         createBombMap() {
-            console.log("creating bomb map") 
+           
             let map = [];
-            for (let row = 0; row < this.selectedSize; row++) {
+            for (let row = 1; row < this.selectedSize + 1; row++) {
               
-            for (let col = 0; col < this.selectedSize; col++) {
-                map.push({row: row, col: col, bomb: true})
-            }
-            }
-               console.log("map", map)
-               this.bombMap = map;
+                for (let col = 1; col < this.selectedSize + 1; col++) {
+                    var x = Math.floor((Math.random() * 5) + 1);
+                    map.push({row: row, col: col, bomb: x == 1, state: STATES.UP})
+                }
+            }              
+            this.bombMap = map;
+            this.counter = map.filter(o => o.bomb == true).length;
+        },
+        stateChanged(position, state, bomb) {
+            let mineHit = state == STATES.DOWN && bomb;
+           // console.log(position, state, bomb, mineHit ? "hit a mine": '')
+           if (state == STATES.FLAGGED) {this.counter--}
+           if(state == STATES.UNFLAGGED) {this.counter ++}
+            this.hitMine = mineHit;
+        },
+        isBomb(row, col) {
+            let bomb = this.bombMap.find(o => {
+                    return o.row == row && o.col == col
+                })?.bomb;
+          
+          return bomb;
         }
     },
      watch: {
          gameStarted() {
              if (this.gameStarted) {
              console.log("started")
-             this.createBombMap();
              this.startTimer();
-             }
+             } 
          },
          boardReset() {
-              console.log("stopped")
+             console.log("stopped")
              this.stopTimer();
              this.timer = 0;
+             this.createBombMap();
+             this.hitMine = false;
+         },
+         hitMine() {
+             this.gameStarted = this.hitMine ? false : true; 
+               this.stopTimer();
+             console.log("here", this.gameStarted)
          }
     }
     
